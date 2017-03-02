@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}做题页{% endblock %}
+{% block head %}{% endblock %}
+{% block nav %}
+<li class="active">
+    <a href="/iw/index">主页</a>
+</li>
+<li>
+    <a href="/iw/mark/word_list/">单词列表</a>
+</li>
+<li>
+    <a href="/iw/data/">数据管理</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+{% if tips %}
+<h3>{{tips}}</h3>
+{% endif %}
+
+<!--{{ques}}-->
+
+
+<div class="row clearfix">
+    <div class="col-md-8 column">
+        {% if ques %}
+        <label>题型:</label>
+        <span class="label label-info">
+             {% if ques %}
+                {% if ques.ques_type == "word2def"%}
+                    单词选释义
+                {% elif ques.ques_type == "def2word" %}
+                    释义选单词
+                {% elif ques.ques_type == "sent2word" %}
+                    例句题
+                {% endif %}
+            {% endif %}
+        </span>
+        {% endif %}
+    </div>
+    <div class="col-md-4 column">
+        <label>
+            {% if pre_ques_is_right >= 0 %}
+                上一题结果:
+                {% if pre_ques_is_right %}
+                正确
+                {% else %}
+                错误
+                {% endif %}
+            {% endif %}
+        </label>
+    </div>
+</div>
+<br/>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            {% if count %}
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{index}}"
+                         aria-valuemin="0" aria-valuemax="{{count}}" style="width: {{progress}}%;">
+                        {{index}}/{{count}}
+                    </div>
+                </div>
+
+                <div class="panel panel-info">
+                    <h3 class="text-center">
+                        {{ques.title}}
+                    </h3>
+                    <div class="list-group">
+                        {% for option in ques.options %}
+                        <button type="button" class="list-group-item" onclick="location='/iw/ques/answer/{{forloop.counter}}/'">
+                            {{option.option}}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row clearfix">
+    <div class="col-md-9 column">
+    </div>
+    <div class="col-md-3 column">
+        {% if not ques %}
+            <a class="btn btn-primary" href="/iw/ques/start_exercise/10/" role="button">开始</a>
+        {% else %}
+            <a class="btn btn-danger" href="/iw/ques/end_exercise/" role="button">直接结束</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock%}
+

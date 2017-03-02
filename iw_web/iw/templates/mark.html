@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}单词详情{% endblock %}
+{% block head %}{% endblock %}
+{% block nav %}
+<li>
+    <a href="/iw/index">主页</a>
+</li>
+<li class="active">
+    <a href="/iw/mark/word_list/">单词列表</a>
+</li>
+<li>
+    <a href="/iw/data/">数据管理</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-info">
+    <div class="panel-heading">单词详情</div>
+    <div class="panel-body">
+
+        <h3>{{word.word}}</h3>
+        <hr/>
+
+        {% if word.audio %}
+            <audio src="{{word.audio}}" controls="controls">
+                你的浏览器不支持audio标签
+            </audio>
+        {% endif %}
+
+        {% if word.fromLang %}
+            <br/>
+            【语种】[{{word.fromLang}}]
+        {% endif %}
+
+        {% if word.phonetic %}
+            <br/>
+            【音标】[{{word.phonetic}}]
+        {% endif %}
+
+        {% if word.definition %}
+            <br/>
+            【释义】{{word.definition}}
+        {% endif %}
+
+        {% if word.sentence %}
+            <br/>
+            【例句】{{word.sentence}}
+            <br/>
+            【例句释义】{{word.trans}}
+        {% endif %}
+
+        <br/>
+        【是否认识】
+        {% if word.is_known == 0 %}
+        <span class="label label-default">未设置</span>
+        {% elif word.is_known == 1 %}
+        <span class="label label-info">认识</span>
+        {% elif word.is_known == 2 %}
+        <span class="label label-warning">不认识</span>
+        {% endif %}
+    </div>
+</div>
+<hr/>
+
+<p align="right">
+  <a href="/iw/mark/mark_is_known/{{word.id}}/1" type="button" class="btn btn-primary" role="button">认识</a>
+  <a href="/iw/mark/mark_is_known/{{word.id}}/2" type="button" class="btn btn-default" role="button">不认识</a>
+</p>
+{% endblock %}
+
+{% block footer %}
+{% endblock%}

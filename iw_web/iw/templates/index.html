@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block head %}{% endblock %}
+{% block nav %}
+<li class="active">
+    <a href="/iw/index">主页</a>
+</li>
+<li>
+    <a href="/iw/mark/word_list/">单词列表</a>
+</li>
+<li>
+    <a href="/iw/data/">数据管理</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    {% if has_start %}
+        <h3>
+            您似乎有未完成的做题记录
+        </h3>
+    {% else %}
+        <h1>
+            欢迎使用‘智能背词
+        </h1>
+        <p>
+            智能背词可以根据您的做题记录自动推断出您对单词的掌握程度。
+        </p>
+    {% endif %}
+</div>
+<button class="btn btn-primary btn-block btn-large" type="button"
+        onclick="location='/iw/ques/start_exercise/10/'">
+    {% if has_start %}
+        继续测试
+    {% else %}
+        开始背词
+    {% endif %}
+</button>
+{% endblock %}
+
+{% block footer %}
+{% endblock%}

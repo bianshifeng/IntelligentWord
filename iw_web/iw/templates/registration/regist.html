@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}注册{% endblock %}
+{% block head %}{% endblock %}
+{% block nav %}
+<li class="active">
+    <a href="/iw/index">主页</a>
+</li>
+<li>
+    <a href="/iw/mark/word_list/">单词列表</a>
+</li>
+<li>
+    <a href="/iw/data/">数据管理</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<h4 class="text-center">注册</h4>
+<hr/>
+
+<form class="form-horizontal" role="form" method="post" action="{% url 'regist' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label">用户名：</label>
+        <div class="col-sm-9">
+            <input type="text" name="{{ regist_form.username.name }}" class="form-control" id="id_{{ regist_form.username.name }}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">邮箱：</label>
+        <div class="col-sm-9">
+            <input type="text" name="{{ regist_form.email.name }}" class="form-control" id="id_{{ regist_form.email.name }}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">密码：</label>
+        <div class="col-sm-9">
+            <input type="password" name="{{ regist_form.password1.name }}" class="form-control"
+                   id="id_{{ regist_form.password1.name }}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">确认密码：</label>
+        <div class="col-sm-9">
+            <input type="password" name="{{ regist_form.password2.name }}" class="form-control"
+                   id="id_{{ regist_form.password2.name }}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-default">提交</button>
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock%}
