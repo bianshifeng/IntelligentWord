@@ -11,6 +11,9 @@
 <li>
     <a href="/iw/data/">数据管理</a>
 </li>
+<li>
+    <a href="/iw/help/">帮助</a>
+</li>
 {% endblock %}
 
 {% block content %}
@@ -25,6 +28,9 @@
         </h1>
         <p>
             智能背词可以根据您的做题记录自动推断出您对单词的掌握程度。
+            <br/>
+            <br/>
+            <b>使用方式,见<a href="{% url 'help' %}">帮助</a>页面。<b/>
         </p>
     {% endif %}
 </div>

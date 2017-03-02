@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from .views import api, data_manager, ques, mark, test, index, regist
+from .views import api, data_manager, ques, mark, test, index, regist, help
 from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
 
@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^mark/word_list/', mark.word_list, name="word_list"),
     url(r'^mark/word_detail/(?P<word_id>[0-9]+)/', mark.word_detail, name="word_detail"),
     url(r'^mark/mark_is_known/(?P<word_id>[0-9]+)/(?P<is_known>[0-9]+)/', mark.mark_is_known, name="mark_is_known"),
+    url(r'^help/', help.help, name="help"),
 
     url(r'^test/', test.test, name="test"),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

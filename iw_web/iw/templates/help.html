@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}数据管理{% endblock %}
+{% block head %}{% endblock %}
+{% block nav %}
+<li>
+    <a href="/iw/index">主页</a>
+</li>
+<li>
+    <a href="/iw/mark/word_list/">单词列表</a>
+</li>
+<li>
+    <a href="/iw/data/">数据管理</a>
+</li>
+<li class="active">
+    <a href="/iw/help/">帮助</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="articleContent">
+        <h3 class="title">
+            使用帮助
+        </h3>
+        <div class="property">
+        </div>
+        <div id="contentTxt">
+            <p>
+                IntelligentWord智能背词算法是一款基于<b>机器学习</b>的根据用户学习记录的自适应背词算法,目前处于研发阶段。
+            </p>
+            <p>
+                算法的预期实现效果是通过用户对单词的历史做题记录以及标记是否认识的记录,来根据用户当前最新做题记录准确推断出用户对单词的掌握程度。
+            </p>
+            <p>
+                目前需要小伙伴协助一起产生一批<b>认真背词</b>的学习数据。(由于是自适应学习算法,会根据用户的操作记录来模拟用户选择的熟悉度,所以认真背词的行为才能产生可参考的数据记录。)
+            </p>
+            <p>
+                具体操作如下:
+                <ul>
+                    <li>1.注册/登录账号</li>
+                    <li>2.点击导航栏<a href="{% url 'data_manager_index' %}">数据管理</a></li>
+                    <li>3.点击"初始化数据",此操作会从单词库中随机选取20个单词作为用户的生词,当然你也可以重复点击,多加入一些生词,但前提是你要保证你能认真背完</li>
+                    <li>4.点击导航栏<a href="{% url 'index' %}">主页</a>开始测试。此操作会从你的生词中随机抽取10个词出题,每个词出3题,分别是"单词选释义","释义选单词"和"例句挖空题"</li>
+                    <li>5.你可以继续多做几次题目(因为我们的目的是产生用于训练的样本数据)</li>
+                    <li>6.点击导航栏<a href="{% url 'word_list' %}">单词列表</a>,然后依次点击单词进入详情页,标注是否认识</li>
+                    <li>7.反复操作4,5,6。越多越好:-)</li>
+                    <li>8.如果你觉得你的数据不够好,你可以进入<a href="{% url 'data_manager_index' %}">数据管理</a>来执行相应的清空数据操作(请谨慎操作)</li>
+                </ul>
+            </p>
+            <p>
+                最后,谢谢大家的配合。(^_^)
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock%}
