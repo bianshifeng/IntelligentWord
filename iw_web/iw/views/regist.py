@@ -22,7 +22,7 @@ def regist(request):
             u = authenticate(username=username, password=password1)
             if u is not None:
                 login(request, authenticate(username=username, password=password1))
-                return redirect("/iw/index")
+                return redirect("/index")
     return render(request, 'registration/regist.html',
                   {
                       "regist_form": regist_form
@@ -30,4 +30,4 @@ def regist(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('/iw/index')
+    return redirect('/index')

@@ -3,31 +3,31 @@
 {% block head %}{% endblock %}
 {% block nav %}
 <li>
-    <a href="/iw/index">主页</a>
+    <a href="/index">主页</a>
 </li>
 <li>
-    <a href="/iw/mark/word_list/">单词列表</a>
+    <a href="/mark/word_list/">单词列表</a>
 </li>
 <li class="active">
-    <a href="/iw/data/">数据管理</a>
+    <a href="/data/">数据管理</a>
 </li>
 <li>
-    <a href="/iw/help/">帮助</a>
+    <a href="/help/">帮助</a>
 </li>
 {% endblock %}
 
 {% block content %}
 <div class="list-group">
-    <a href="/iw/init/data/" class="list-group-item">初始化数据(为了方便测试,初始化只加载20条数据)</a>
-    <a href="/iw/clear_words/data/" class="list-group-item">清空所有单词和背词记录</a>
-    <a href="/iw/clear_records/data/" class="list-group-item">清空所有背词记录</a>
+    <a href="/init/data/" class="list-group-item">初始化数据(为了方便测试,初始化只加载20条数据)</a>
+    <a href="/clear_words/data/" class="list-group-item">清空所有单词和背词记录</a>
+    <a href="/clear_records/data/" class="list-group-item">清空所有背词记录</a>
 </div>
 <div class="list-group">
-    <a href="/iw/dump_origin_data/data/5" class="list-group-item" target="_blank">查看全部原始样本</a>
-    <a href="/iw/dump_processed_data/data/5" class="list-group-item" target="_blank">查看全部处理后的样本</a>
-    <a href="/iw/dump_train_test_nparray_data/data/5" class="list-group-item" target="_blank">查看数值化训练和测试样本</a>
-    <a href="/iw/dump_forecate_nparray_data/data/5" class="list-group-item" target="_blank">查看数值化预测样本</a>
-    <a href="/iw/training/data/5" class="list-group-item" target="_blank">开始训练</a>
+    <a href="/dump_origin_data/data/5" class="list-group-item" target="_blank">查看全部原始样本</a>
+    <a href="/dump_processed_data/data/5" class="list-group-item" target="_blank">查看全部处理后的样本</a>
+    <a href="/dump_train_test_nparray_data/data/5" class="list-group-item" target="_blank">查看数值化训练和测试样本</a>
+    <a href="/dump_forecate_nparray_data/data/5" class="list-group-item" target="_blank">查看数值化预测样本</a>
+    <a href="/training/data/5" class="list-group-item" target="_blank">开始训练</a>
 </div>
 {% endblock %}
 

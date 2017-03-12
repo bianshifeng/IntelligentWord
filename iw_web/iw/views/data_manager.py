@@ -8,15 +8,15 @@ from ..ml_logic.ml_data_manage import single_vector_data_train, gen_train_test_d
 from ..ml_logic.train_logic_new import ml_train
 from ..models import Word, QuesRecord
 from ..utils import get_main_path, get_user
-import os, json,numpy
+import os, json
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def index(request):
     return render(request, 'data_manager.html')
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def init(request):
     print(">>> 开始初始化数据")
     origin_data_json = os.path.join(get_main_path(), "origin_data", "response.json")
@@ -61,7 +61,7 @@ def save_word_modle(requset, word_list):
                           )
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def clear_words(request):
     user = get_user(request)
     QuesRecord.objects.delete_all(user)
@@ -71,7 +71,7 @@ def clear_words(request):
     })
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def clear_records(request):
     user = get_user(request)
     QuesRecord.objects.delete_all(user)
@@ -80,7 +80,7 @@ def clear_records(request):
     })
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def dump_origin_data(request, max_record_size):
     max_record_size = int(max_record_size)
     user = get_user(request)
@@ -88,7 +88,7 @@ def dump_origin_data(request, max_record_size):
     return HttpResponse(dump_log)
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def dump_processed_data(request, max_record_size):
     max_record_size = int(max_record_size)
     dump_log = json.dumps(single_vector_data_train(request, max_record_size))
@@ -96,7 +96,7 @@ def dump_processed_data(request, max_record_size):
 
 
 # 生成用于训练和测试的矩阵数据
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def dump_train_test_nparray_data(request, max_record_size):
     max_record_size = int(max_record_size)
     train_x, train_y, test_x, test_y = gen_train_test_data(request, max_record_size)
@@ -108,7 +108,7 @@ def dump_train_test_nparray_data(request, max_record_size):
     })
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def dump_forecate_nparray_data(request, max_record_size):
     max_record_size = int(max_record_size)
     forecate_x, forecast_log, forecast_word_list = gen_forecate_data(request, max_record_size)
@@ -119,7 +119,7 @@ def dump_forecate_nparray_data(request, max_record_size):
     })
 
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def training(request, max_record_size):
     max_record_size = int(max_record_size)
     train_result = ml_train(request, max_record_size)

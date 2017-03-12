@@ -17,6 +17,7 @@ urlpatterns = [
     url('^schema/$', schema_view),
     url(r'^api/', include(router.urls)),
     url('', include('django.contrib.auth.urls')),
+
     url(r'^regist/$', regist.regist,name="regist"),
     url(r'^user_logout/$', regist.user_logout,name="user_logout"),
 

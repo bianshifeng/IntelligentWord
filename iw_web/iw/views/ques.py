@@ -6,7 +6,7 @@ from ..biz.ques_builder import gen_ques_list
 from ..biz.exercise import is_right
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def ques_list(request, size):
     return render(request, 'ques.html', {
         "tips": gen_ques_list(request,int(size))
@@ -19,7 +19,7 @@ def get_ques_response(request, pre_ques_is_right=-1):
         ques_list = ques_session.get("ques_list")
         if len(ques_list) is 0:
             del_ques_session(request)
-            return HttpResponseRedirect("/iw/data/")
+            return HttpResponseRedirect("/data/")
         index = ques_session.get("ques_index")
         progress = index / len(ques_list) * 100;
         return render(request, 'ques.html', {
@@ -36,7 +36,7 @@ def get_ques_response(request, pre_ques_is_right=-1):
 
 
 # 开始答题  包括题目生成逻辑
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def start_exercise(request, size=10):
     if has_start_exercises(request):
         return get_ques_response(request)
@@ -48,12 +48,12 @@ def start_exercise(request, size=10):
 
 
 # 答题
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def answer(request, option_pos):
     option_index = int(option_pos) - 1
 
     if not has_start_exercises(request):
-        return HttpResponseRedirect("/iw/ques/start_exercise/10")
+        return HttpResponseRedirect("/ques/start_exercise/10")
     else:
         ques_session = get_ques_session(request)
         size = len(ques_session.get("ques_list"))
@@ -73,7 +73,7 @@ def answer(request, option_pos):
 
 
 # 答题结束
-@login_required(login_url="/iw/login/")
+@login_required(login_url="/login/")
 def end_exercise(request):
     del_ques_session(request)
     return render(request, 'ques.html', {

@@ -3,16 +3,16 @@
 {% block head %}{% endblock %}
 {% block nav %}
 <li class="active">
-    <a href="/iw/index">主页</a>
+    <a href="/index">主页</a>
 </li>
 <li>
-    <a href="/iw/mark/word_list/">单词列表</a>
+    <a href="/mark/word_list/">单词列表</a>
 </li>
 <li>
-    <a href="/iw/data/">数据管理</a>
+    <a href="/data/">数据管理</a>
 </li>
 <li>
-    <a href="/iw/help/">帮助</a>
+    <a href="/help/">帮助</a>
 </li>
 {% endblock %}
 
@@ -74,7 +74,7 @@
                     </h3>
                     <div class="list-group">
                         {% for option in ques.options %}
-                        <button type="button" class="list-group-item" onclick="location='/iw/ques/answer/{{forloop.counter}}/'">
+                        <button type="button" class="list-group-item" onclick="location='/ques/answer/{{forloop.counter}}/'">
                             {{option.option}}
                         </button>
                         {% endfor %}
@@ -92,9 +92,9 @@
     </div>
     <div class="col-md-3 column">
         {% if not ques %}
-            <a class="btn btn-primary" href="/iw/ques/start_exercise/10/" role="button">开始</a>
+            <a class="btn btn-primary" href="/ques/start_exercise/10/" role="button">开始</a>
         {% else %}
-            <a class="btn btn-danger" href="/iw/ques/end_exercise/" role="button">直接结束</a>
+            <a class="btn btn-danger" href="/ques/end_exercise/" role="button">直接结束</a>
         {% endif %}
     </div>
 </div>
