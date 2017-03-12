@@ -13,6 +13,11 @@ def word_list(request):
     })
 
 @login_required(login_url="/login/")
+def word_list_mark_is_known(request,word_id,is_known):
+    Word.objects.update_word_is_known(word_id,is_known)
+    return HttpResponseRedirect("/mark/word_list/")
+
+@login_required(login_url="/login/")
 def word_detail(request,word_id):
 
     word = Word.objects.get_word(word_id)

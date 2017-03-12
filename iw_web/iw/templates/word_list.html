@@ -23,15 +23,19 @@
 <ul class="list-group">
     {% for word in word_list %}
     <li class="list-group-item">
-        <span class="badge">
-            {% if word.is_known == 1 %}
-                认识
-            {% elif word.is_known == 2 %}
-                不认识
-            {% elif word.is_known == 0 %}
-                未设置
-            {% endif %}
-        </span>
+        <!--当前状态-->
+        {% if word.is_known == 1 %}
+            <span class="badge">认识</span>
+            <a type="button" class="btn btn-primary btn-xs badge" href="/mark/word_list_mark_is_known/{{word.id}}/2">不认识</a>
+        {% elif word.is_known == 2 %}
+            <a type="button" class="btn btn-primary btn-xs badge" href="/mark/word_list_mark_is_known/{{word.id}}/1">认识</a>
+            <span class="badge">不认识</span>
+        {% elif word.is_known == 0 %}
+            <span class="badge">未设置</span>
+            <a type="button" class="btn btn-primary btn-xs badge" href="/mark/word_list_mark_is_known/{{word.id}}/1">认识</a>
+            <a type="button" class="btn btn-primary btn-xs badge" href="/mark/word_list_mark_is_known/{{word.id}}/2">不认识</a>
+        {% endif %}
+
         <a href="/mark/word_detail/{{word.id}}">{{word.word}}</a>
     </li>
     {% endfor %}

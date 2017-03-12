@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^ques/end_exercise/', ques.end_exercise, name="end_exercise"),
     url(r'^ques/answer/(?P<option_pos>[0-9]+)/', ques.answer, name="answer"),
     url(r'^mark/word_list/', mark.word_list, name="word_list"),
+    url(r'^mark/word_list_mark_is_known/(?P<word_id>[0-9]+)/(?P<is_known>[0-9]+)/', mark.word_list_mark_is_known, name="word_list_mark_is_known"),
     url(r'^mark/word_detail/(?P<word_id>[0-9]+)/', mark.word_detail, name="word_detail"),
     url(r'^mark/mark_is_known/(?P<word_id>[0-9]+)/(?P<is_known>[0-9]+)/', mark.mark_is_known, name="mark_is_known"),
     url(r'^help/', help.help, name="help"),
