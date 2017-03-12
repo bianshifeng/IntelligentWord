@@ -25,10 +25,11 @@ SECRET_KEY = '_^d@se64o-qbgcw+ow0l%5#1qy%uufm1nvc@=30s!y!wsv1b-l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',
-                 '127.0.0.1',
-                 '172.16.20.148',
-                 '172.16.20.125']
+ALLOWED_HOSTS = [
+    'localhost',
+    '118.190.96.169',
+    'munin.tech',
+]
 
 
 # Application definition

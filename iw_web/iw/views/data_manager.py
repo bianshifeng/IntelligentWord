@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from ..ml_logic.ml_data_manage import data_processing, get_trainning_data, get_validate_data
-from ..ml_logic.train_logic import ml_train
+from ..ml_logic.ml_data_manage import single_vector_data_train, gen_train_test_data, gen_forecate_data
+from ..ml_logic.train_logic_new import ml_train
 from ..models import Word, QuesRecord
 from ..utils import get_main_path, get_user
-import os, json
+import os, json,numpy
 
 
 @login_required(login_url="/iw/login/")
@@ -91,28 +91,53 @@ def dump_origin_data(request, max_record_size):
 @login_required(login_url="/iw/login/")
 def dump_processed_data(request, max_record_size):
     max_record_size = int(max_record_size)
-    dump_log = json.dumps(data_processing(request, max_record_size))
+    dump_log = json.dumps(single_vector_data_train(request, max_record_size))
     return HttpResponse(dump_log)
+
+
+# 生成用于训练和测试的矩阵数据
+@login_required(login_url="/iw/login/")
+def dump_train_test_nparray_data(request, max_record_size):
+    max_record_size = int(max_record_size)
+    train_x, train_y, test_x, test_y = gen_train_test_data(request, max_record_size)
+    return render(request, 'train_test_data.html', {
+        "train_x": train_x,
+        "train_y": train_y,
+        "test_x": test_x,
+        "test_y": test_y
+    })
 
 
 @login_required(login_url="/iw/login/")
-def dump_training_nparray_data(request, max_record_size):
+def dump_forecate_nparray_data(request, max_record_size):
     max_record_size = int(max_record_size)
-    x, y = get_trainning_data(request, max_record_size)
-    dump_log = str(x) + "<br/><hr/>" + str(y)
-    return HttpResponse(dump_log)
-
-
-@login_required(login_url="/iw/login/")
-def dump_validate_nparray_data(request, max_record_size):
-    max_record_size = int(max_record_size)
-    x, y = get_validate_data(request, max_record_size)
-    dump_log = str(x) + "<br/><hr/>" + str(y)
-    return HttpResponse(dump_log)
+    forecate_x, forecast_log, forecast_word_list = gen_forecate_data(request, max_record_size)
+    return render(request, 'forecate_data.html', {
+        "forecate_x": forecate_x,
+        "forecast_log": forecast_log,
+        "forecast_word_list": forecast_word_list
+    })
 
 
 @login_required(login_url="/iw/login/")
 def training(request, max_record_size):
     max_record_size = int(max_record_size)
-    result = ml_train(request, max_record_size)
-    return HttpResponse("准确率:" + str(result))
+    train_result = ml_train(request, max_record_size)
+
+    list_y = train_result.get("y")
+    word_list = train_result.get("forecast_word_list")
+    forecast_word_list = []
+    for index, item in enumerate(list_y):
+        word = word_list[index]
+        if int(item) is 1:
+            forecast = "认识"
+        else:
+            forecast = "不认识"
+        forecast_word_list.append({"word":word,
+                                   "forecast":forecast})
+
+    return render(request, 'train_result.html', {
+        "accuracy_score": train_result.get("accuracy_score"),
+        "forecast_word_list": forecast_word_list,
+        "model_dir": train_result.get("model_dir")
+    })

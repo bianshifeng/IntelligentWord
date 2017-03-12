@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预测数据</title>
+</head>
+<body>
+
+数值化预测数据:
+<br/>
+{{forecate_x}}
+
+<hr/>
+预测数据对应的单词
+<br/>
+{% for word in forecast_word_list %}
+    {{word}}
+    <br/>
+{% endfor %}
+
+<hr/>
+预测数据对应的做题记录
+<br/>
+{% for log in forecast_log %}
+    {{log}}
+    <br/>
+{% endfor %}
+
+</body>
+</html>

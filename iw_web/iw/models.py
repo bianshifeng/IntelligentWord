@@ -45,6 +45,7 @@ class WordManager(models.Manager):
     def delete_all(self, user):
         self.get_user_word_list(user).delete()
 
+
     def dump_ml_training_log(self, user, max_record_size):
         word_list = self.get_word_list()
         dump_log_list = []
@@ -69,6 +70,29 @@ class WordManager(models.Manager):
                     dump_log_list.append(dump_log)
         return dump_log_list
 
+
+    def dump_ml_forecast_log(self, user, max_record_size):
+        word_list = self.get_word_list()
+        dump_log_list = []
+        for word in word_list:
+            is_known = word.is_known
+            if is_known is not 0:
+                ques_list = QuesRecord.objects.get_user_ques_record_list(user, word)[:max_record_size]
+                if ques_list:
+                    dump_log = {}
+                    dump_log["word_id"] = word.id
+                    dump_log["is_known"] = is_known
+                    dump_log["mark_time"] = get_now_time()
+                    ques_record_log = []
+                    for ques_record in ques_list:
+                        ques_record_log.append({
+                            "ques_type": ques_record.ques_type,
+                            "record_time": ques_record.record_time,
+                            "is_right": ques_record.is_right
+                        })
+                    dump_log["ques_record_log"] = ques_record_log
+                    dump_log_list.append(dump_log)
+        return dump_log_list
 
 class Word(models.Model):
     user = models.ForeignKey(User)
