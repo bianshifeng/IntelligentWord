@@ -76,22 +76,22 @@ class WordManager(models.Manager):
         dump_log_list = []
         for word in word_list:
             is_known = word.is_known
-            if is_known is not 0:
-                ques_list = QuesRecord.objects.get_user_ques_record_list(user, word)[:max_record_size]
-                if ques_list:
-                    dump_log = {}
-                    dump_log["word_id"] = word.id
-                    dump_log["is_known"] = is_known
-                    dump_log["mark_time"] = get_now_time()
-                    ques_record_log = []
-                    for ques_record in ques_list:
-                        ques_record_log.append({
-                            "ques_type": ques_record.ques_type,
-                            "record_time": ques_record.record_time,
-                            "is_right": ques_record.is_right
-                        })
-                    dump_log["ques_record_log"] = ques_record_log
-                    dump_log_list.append(dump_log)
+
+            ques_list = QuesRecord.objects.get_user_ques_record_list(user, word)[:max_record_size]
+            if ques_list:
+                dump_log = {}
+                dump_log["word_id"] = word.id
+                dump_log["is_known"] = is_known
+                dump_log["mark_time"] = get_now_time()
+                ques_record_log = []
+                for ques_record in ques_list:
+                    ques_record_log.append({
+                        "ques_type": ques_record.ques_type,
+                        "record_time": ques_record.record_time,
+                        "is_right": ques_record.is_right
+                    })
+                dump_log["ques_record_log"] = ques_record_log
+                dump_log_list.append(dump_log)
         return dump_log_list
 
 class Word(models.Model):
