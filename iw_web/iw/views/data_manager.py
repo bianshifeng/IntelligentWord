@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from ..ml_logic.ml_data_manage import single_vector_data_train, gen_train_test_data, gen_forecate_data
+from ..ml_logic.ml_data_manage import single_vector_data_train, gen_train_test_data, gen_forecate_data,get_modle_dir
 from ..ml_logic.train_logic_new import ml_train
 from ..models import Word, QuesRecord
 from ..utils import get_main_path, get_user
-import os, json
+import os, json,shutil
 
 
 @login_required(login_url="/login/")
@@ -122,22 +122,38 @@ def dump_forecate_nparray_data(request, max_record_size):
 @login_required(login_url="/login/")
 def training(request, max_record_size):
     max_record_size = int(max_record_size)
-    train_result = ml_train(request, max_record_size)
+    try:
+        train_result = ml_train(request, max_record_size)
 
-    list_y = train_result.get("y")
-    word_list = train_result.get("forecast_word_list")
-    forecast_word_list = []
-    for index, item in enumerate(list_y):
-        word = word_list[index]
-        if int(item) is 1:
-            forecast = "认识"
-        else:
-            forecast = "不认识"
-        forecast_word_list.append({"word":word,
-                                   "forecast":forecast})
+        list_y = train_result.get("y")
+        word_list = train_result.get("forecast_word_list")
+        forecast_word_list = []
+        for index, item in enumerate(list_y):
+            word = word_list[index]
+            if int(item) is 1:
+                forecast = "认识"
+            else:
+                forecast = "不认识"
+            forecast_word_list.append({"word":word,
+                                       "forecast":forecast})
 
-    return render(request, 'train_result.html', {
-        "accuracy_score": train_result.get("accuracy_score"),
-        "forecast_word_list": forecast_word_list,
-        "model_dir": train_result.get("model_dir")
+        return render(request, 'train_result.html', {
+            "accuracy_score": train_result.get("accuracy_score"),
+            "forecast_word_list": forecast_word_list,
+            "model_dir": train_result.get("model_dir")
+        })
+    except Exception as e:
+        return render(request, 'data_manage_result.html', {
+            "tips": e
+        })
+
+@login_required(login_url="/login/")
+def del_train_modle_dir(request):
+    modle_dir = get_modle_dir(request)
+    tips = "未生成训练模型!"
+    if os.path.exists(modle_dir):
+        shutil.rmtree(modle_dir)
+        tips = "用户训练模型已经清空!"
+    return render(request, 'data_manage_result.html', {
+        "tips": tips
     })

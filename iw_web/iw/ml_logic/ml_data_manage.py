@@ -1,8 +1,11 @@
 from ..models import Word
 import numpy as np
 import random
-from ..utils import get_user
+from ..utils import get_user,get_main_path
 
+# 获取用户训练模型的目录地址
+def get_modle_dir(request):
+    return get_main_path() + "/tdata/" + request.user.username
 
 # 获取训练和测试数据集
 def gen_train_test_data(request, maxrecord_size):

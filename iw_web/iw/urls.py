@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^dump_train_test_nparray_data/data/(?P<max_record_size>[0-9]+)/', data_manager.dump_train_test_nparray_data, name="dump_train_test_nparray_data"),
     url(r'^dump_forecate_nparray_data/data/(?P<max_record_size>[0-9]+)/', data_manager.dump_forecate_nparray_data, name="dump_forecate_nparray_data"),
     url(r'^training/data/(?P<max_record_size>[0-9]+)/', data_manager.training, name="training"),
+    url(r'^del_train_modle_dir/data/', data_manager.del_train_modle_dir, name="del_train_modle_dir"),
     url(r'^ques/ques_list/(?P<size>[0-9]+)/', ques.ques_list, name="ques_list"),
     url(r'^ques/start_exercise/(?P<size>[0-9]+)/', ques.start_exercise, name="start_exercise"),
     url(r'^ques/end_exercise/', ques.end_exercise, name="end_exercise"),
